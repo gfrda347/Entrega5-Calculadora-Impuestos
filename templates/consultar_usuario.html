@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consultar Usuario</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        input {
+            margin-bottom: 15px;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .usuario-info {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Consultar Usuario</h1>
+        <form action="{{ url_for('consultar_usuario') }}" method="post">
+            <label for="id_usuario">ID Usuario</label>
+            <input type="text" id="id_usuario" name="id_usuario" required>
+            <button type="submit">Consultar</button>
+        </form>
+
+        {% if usuario %}
+        <div class="usuario-info">
+            <h2>Datos del Usuario</h2>
+            <p><strong>ID:</strong> {{ usuario[0] }}</p>
+            <p><strong>Nombre:</strong> {{ usuario[1] }}</p>
+            <p><strong>Apellido:</strong> {{ usuario[2] }}</p>
+            <p><strong>Documento de Identidad:</strong> {{ usuario[3] }}</p>
+            <p><strong>Correo Electrónico:</strong> {{ usuario[4] }}</p>
+            <p><strong>Teléfono:</strong> {{ usuario[5] }}</p>
+            <p><strong>Salario:</strong> {{ usuario[6] }}</p>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
