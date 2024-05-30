@@ -88,7 +88,7 @@ Tener en cuenta: primeramente debe descargar el repositorio, para hacerlo ten en
 
 4. Ejecuta el siguiente comando para iniciar el programa: 
 
-    `python view_web\vista_usuario.py`
+    `python view_web\vista_usuarios.py`
 
 ### Ejecutar por consola 
 1. Abra la terminal en su computadora.
