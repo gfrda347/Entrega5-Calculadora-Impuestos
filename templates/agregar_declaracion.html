@@ -7,47 +7,71 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
+            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
         }
         .container {
+            width: 50%;
+            margin: 50px auto;
             background-color: #fff;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
         }
         h1 {
             text-align: center;
-            margin-bottom: 20px;
+            color: #333;
         }
         form {
             display: flex;
             flex-direction: column;
         }
         label {
+            margin-top: 10px;
             margin-bottom: 5px;
+            color: #333;
         }
-        input {
-            margin-bottom: 15px;
-            padding: 8px;
-            border: 1px solid #ccc;
-            border-radius: 3px;
+        input[type="text"], input[type="number"] {
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
         }
         button {
             padding: 10px;
             background-color: #007bff;
             color: #fff;
             border: none;
-            border-radius: 3px;
+            border-radius: 4px;
             cursor: pointer;
         }
         button:hover {
             background-color: #0056b3;
+        }
+        .messages ul {
+            list-style: none;
+            padding: 0;
+        }
+        .messages li {
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+        }
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        h2 {
+            margin-top: 20px;
+            color: #333;
+        }
+        p {
+            margin: 5px 0;
+            color: #333;
         }
     </style>
 </head>
@@ -55,8 +79,8 @@
     <div class="container">
         <h1>Bienvenido a tu declaración de renta</h1>
         <form action="{{ url_for('agregar_declaracion') }}" method="post">
-            <label for="id_usuario">ID Retención</label>
-            <input type="text" id="id_usuario" name="id_usuario" value="{{ id_usuario }}" readonly required>
+            <label for="id_usuario">ID Usuario</label>
+            <input type="text" id="id_usuario" name="id_usuario" required>
 
             <label for="ingresos_laborales">Ingresos Laborales</label>
             <input type="number" id="ingresos_laborales" name="ingresos_laborales" required>
@@ -87,6 +111,34 @@
 
             <button type="submit">Registrar</button>
         </form>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="messages">
+            <ul>
+            {% for category, message in messages %}
+                <li class="{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        {% if total_ingresos_gravados is defined %}
+        <h2>Resultados de la Declaración</h2>
+        <p>Total de Ingresos Gravados: {{ total_ingresos_gravados }}</p>
+        <p>Total de Ingresos No Gravados: {{ total_ingresos_no_gravados }}</p>
+        <p>Total de Costos Deducibles: {{ total_costos_deducibles }}</p>
+        <p>Valor del Impuesto: {{ valor_impuesto }}</p>
+        <form action="{{ url_for('registrar_resultados') }}" method="post">
+            <input type="hidden" name="id_usuario" value="{{ id_usuario }}">
+            <input type="hidden" name="total_ingresos_gravados" value="{{ total_ingresos_gravados }}">
+            <input type="hidden" name="total_ingresos_no_gravados" value="{{ total_ingresos_no_gravados }}">
+            <input type="hidden" name="total_costos_deducibles" value="{{ total_costos_deducibles }}">
+            <input type="hidden" name="valor_impuesto" value="{{ valor_impuesto }}">
+            <button type="submit">Registrar Resultados</button>
+        </form>
+        {% endif %}
     </div>
 </body>
 </html>

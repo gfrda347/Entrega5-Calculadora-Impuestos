@@ -60,46 +60,85 @@ def agregar_usuario():
 
     return render_template('agregar_usuario.html')
 
-# Ruta para agregar una declaración
 @app.route('/agregar_declaracion', methods=['GET', 'POST'])
 def agregar_declaracion():
     if request.method == 'POST':
+        # Depurador para verificar la solicitud
+        print("Solicitud POST recibida")
+        print(request.form)
+
         # Obtener datos del formulario
-        id_usuario = request.form['id_usuario']
-        ingresos_laborales = request.form['ingresos_laborales']
+        id_usuario = request.form.get('id_usuario')
+        ingresos_laborales = request.form.get('ingresos_laborales')
         otros_ingresos_gravables = request.form.get('otros_ingresos_gravables', 0)
         otros_ingresos_no_gravables = request.form.get('otros_ingresos_no_gravables', 0)
-        retenciones = request.form['retenciones']
-        seguridad_social = request.form['seguridad_social']
-        aportes_pension = request.form['aportes_pension']
-        gastos_creditos_hipotecarios = request.form['gastos_creditos_hipotecarios']
+        retenciones = request.form.get('retenciones')
+        seguridad_social = request.form.get('seguridad_social')
+        aportes_pension = request.form.get('aportes_pension')
+        gastos_creditos_hipotecarios = request.form.get('gastos_creditos_hipotecarios')
         donaciones = request.form.get('donaciones', 0)
         gastos_educacion = request.form.get('gastos_educacion', 0)
 
+        # Calcular valores adicionales
+        total_ingresos_gravados = float(ingresos_laborales) + float(otros_ingresos_gravables)
+        total_ingresos_no_gravados = float(otros_ingresos_no_gravables)
+        total_costos_deducibles = float(seguridad_social) + float(aportes_pension) + float(gastos_creditos_hipotecarios) + float(donaciones) + float(gastos_educacion)
+
         # Validar los datos (puedes agregar más validaciones según necesites)
-        if not all([id_usuario, ingresos_laborales, otros_ingresos_gravables, otros_ingresos_no_gravables ,retenciones, seguridad_social, aportes_pension, gastos_creditos_hipotecarios, donaciones, gastos_educacion]):
-            flash('Todos los campos son obligatorios')
+        if not all([id_usuario, ingresos_laborales, retenciones, seguridad_social, aportes_pension, gastos_creditos_hipotecarios]):
+            flash('Todos los campos son obligatorios', 'error')
             return redirect(url_for('agregar_declaracion'))
+
+        # Proporcionar un valor por defecto para valor_impuesto
+        valor_impuesto = 0  # O cualquier otro valor por defecto
 
         # Conectar a la base de datos y agregar la declaración
         conn = conectar_db()
         cursor = conn.cursor()
         try:
             cursor.execute(
-                'INSERT INTO retencion (id_usuario, ingresos_laborales, otros_ingresos, retenciones, seguridad_social, aportes_pension, gastos_creditos_hipotecarios, donaciones, gastos_educacion) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-                (id_usuario, ingresos_laborales, otros_ingresos_gravables,otros_ingresos_no_gravables, retenciones, seguridad_social, aportes_pension, gastos_creditos_hipotecarios, donaciones, gastos_educacion)
+                'INSERT INTO declaracion (id_usuario, ingresos_laborales, otros_ingresos_gravables, otros_ingresos_no_gravables, retenciones, seguridad_social, aportes_pension, gastos_creditos_hipotecarios, donaciones, gastos_educacion, total_ingresos_gravados, total_ingresos_no_gravados, total_costos_deducibles, valor_impuesto) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)',
+                (id_usuario, ingresos_laborales, otros_ingresos_gravables, otros_ingresos_no_gravables, retenciones, seguridad_social, aportes_pension, gastos_creditos_hipotecarios, donaciones, gastos_educacion, total_ingresos_gravados, total_ingresos_no_gravados, total_costos_deducibles, valor_impuesto)
             )
             conn.commit()
-            flash('Declaración agregada exitosamente')
+            flash('Declaración agregada exitosamente', 'success')
+            # Redirigir a la parte de resultados
+            return render_template('agregar_declaracion.html', id_usuario=id_usuario, total_ingresos_gravados=total_ingresos_gravados, total_ingresos_no_gravados=total_ingresos_no_gravados, total_costos_deducibles=total_costos_deducibles, valor_impuesto=valor_impuesto)
         except Exception as e:
             conn.rollback()
-            flash('Error al agregar la declaración: ' + str(e))
+            flash('Error al agregar la declaración: ' + str(e), 'error')
         finally:
+            cursor.close()
             conn.close()
-        
-        return redirect(url_for('index'))
-    
+
     return render_template('agregar_declaracion.html')
+
+@app.route('/registrar_resultados', methods=['POST'])
+def registrar_resultados():
+    id_usuario = request.form['id_usuario']
+    total_ingresos_gravados = request.form['total_ingresos_gravados']
+    total_ingresos_no_gravados = request.form['total_ingresos_no_gravados']
+    total_costos_deducibles = request.form['total_costos_deducibles']
+    valor_impuesto = request.form['valor_impuesto']
+
+    conn = conectar_db()
+    cursor = conn.cursor()
+    try:
+        cursor.execute(
+            'INSERT INTO ingresos (total_ingresos_gravados, total_ingresos_no_gravados, total_costos_deducibles, valor_impuesto, id_usuario) VALUES (%s, %s, %s, %s, %s)',
+            (total_ingresos_gravados, total_ingresos_no_gravados, total_costos_deducibles, valor_impuesto, id_usuario)
+        )
+
+        conn.commit()
+        flash('Resultados de la declaración registrados exitosamente')
+    except Exception as e:
+        conn.rollback()
+        flash('Error al registrar los resultados: ' + str(e))
+    finally:
+        cursor.close()
+        conn.close()
+
+    return redirect(url_for('index'))
 
 # Ruta para consultar un usuario
 @app.route('/consultar_usuario', methods=['GET', 'POST'])
