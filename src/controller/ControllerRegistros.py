@@ -1,10 +1,15 @@
 import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+import psycopg2
+import SecretConfig
+
+import sys
 sys.path.append("src")
 
 from model.TaxLogic import TaxInformation
 
 import psycopg2
-from controller import SecretConfig
 
 class ErrorNotFound( Exception ):
     """ Excepcion que indica que una fila buscada no fue encontrada"""
