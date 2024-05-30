@@ -3,7 +3,7 @@ sys.path.append (".")
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 import psycopg2
-
+import SecretConfig
 # Define el directorio base del proyecto
 base_dir = os.path.abspath(os.path.dirname(__file__))
 # Configura el directorio de plantillas relativo al directorio base
@@ -15,7 +15,7 @@ app.secret_key = 'your_secret_key'
 
 # Función para conectar a la base de datos
 def conectar_db():
-    conn_string = "postgresql://neondb_owner:9g7VrnOaAqTK@ep-lively-snow-a5tp6y2b.us-east-2.aws.neon.tech/entrega51?sslmode=require"
+    conn_string =SecretConfig.PGCODE
     conn = psycopg2.connect(conn_string)
     return conn
 
