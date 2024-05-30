@@ -58,7 +58,7 @@ Tener en cuenta: primeramente debe descargar el repositorio, para hacerlo ten en
 3. Una vez  creado el proyecto y la base de datos te dirijes a la opcion **Dashboard**.
 4. Desplegas el menu donde dice **Connection string**, alli seleccionas la opcion de **Parameters only**.
 5. Copias todo lo que se encuentra en el campo de texto y te dirijes donde tienes el repositorio abierto.
-6. En la carpeta del proyecto encontraras una carpeta llamada **src**, dentro de esta hay un carpteta llamada **controller**, Alli encontraras un archivo llamado **SecretConfigSample.py**.
+6. En el archivo vista_usuarios.py en la función conectar_db, agregar el postgresql del **connection string**.
 7. En este archivo debes pegar los parametros que copias en el Neon de tu base de datos.
 8. Por Ultimo debes cambiar el nombre del archivo SecretConfigSample.py por **SecretConfig.py**.
 

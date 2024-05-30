@@ -3,7 +3,7 @@ sys.path.append (".")
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 import psycopg2
-import SecretConfig
+
 # Define el directorio base del proyecto
 base_dir = os.path.abspath(os.path.dirname(__file__))
 # Configura el directorio de plantillas relativo al directorio base
@@ -13,9 +13,9 @@ template_dir = os.path.join(base_dir, '../templates')
 app = Flask(__name__, template_folder=template_dir)
 app.secret_key = 'your_secret_key'
 
-# Función para conectar a la base de datos (placeholder)
+# Función para conectar a la base de datos
 def conectar_db():
-    conn_string = f"host={SecretConfig.PGHOST} dbname={SecretConfig.PGDATABASE} user={SecretConfig.PGUSER} password={SecretConfig.PGPASSWORD}"
+    conn_string = "postgresql://neondb_owner:9g7VrnOaAqTK@ep-lively-snow-a5tp6y2b.us-east-2.aws.neon.tech/entrega51?sslmode=require"
     conn = psycopg2.connect(conn_string)
     return conn
 
@@ -63,10 +63,6 @@ def agregar_usuario():
 @app.route('/agregar_declaracion', methods=['GET', 'POST'])
 def agregar_declaracion():
     if request.method == 'POST':
-        # Depurador para verificar la solicitud
-        print("Solicitud POST recibida")
-        print(request.form)
-
         # Obtener datos del formulario
         id_usuario = request.form.get('id_usuario')
         ingresos_laborales = request.form.get('ingresos_laborales')
@@ -84,7 +80,7 @@ def agregar_declaracion():
         total_ingresos_no_gravados = float(otros_ingresos_no_gravables)
         total_costos_deducibles = float(seguridad_social) + float(aportes_pension) + float(gastos_creditos_hipotecarios) + float(donaciones) + float(gastos_educacion)
 
-        # Validar los datos (puedes agregar más validaciones según necesites)
+        # Validar los datos
         if not all([id_usuario, ingresos_laborales, retenciones, seguridad_social, aportes_pension, gastos_creditos_hipotecarios]):
             flash('Todos los campos son obligatorios', 'error')
             return redirect(url_for('agregar_declaracion'))
@@ -162,6 +158,7 @@ def consultar_usuario():
             conn.close()
 
     return render_template('consultar_usuario.html', usuario=usuario)
+
 # Ruta para eliminar un usuario
 @app.route('/eliminar_usuario', methods=['GET', 'POST'])
 def eliminar_usuario():
@@ -190,3 +187,4 @@ def eliminar_usuario():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
