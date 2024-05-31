@@ -75,6 +75,46 @@
             <p><strong>Salario:</strong> {{ usuario[6] }}</p>
         </div>
         {% endif %}
+
+        {% if declaraciones %}
+        <div class="declaraciones-info">
+            <h2>Declaraciones</h2>
+            {% for declaracion in declaraciones %}
+            <div class="declaracion">
+                <p><strong>ID Usuario:</strong> {{ declaracion[0] }}</p>
+                <p><strong>Ingresos Laborales:</strong> {{ declaracion[1] }}</p>
+                <p><strong>Otros Ingresos Gravables:</strong> {{ declaracion[2] }}</p>
+                <p><strong>Otros Ingresos No Gravables:</strong> {{ declaracion[3] }}</p>
+                <p><strong>Retenciones:</strong> {{ declaracion[4] }}</p>
+                <p><strong>Seguridad Social:</strong> {{ declaracion[5] }}</p>
+                <p><strong>Aportes Pensión:</strong> {{ declaracion[6] }}</p>
+                <p><strong>Gastos Créditos Hipotecarios:</strong> {{ declaracion[7] }}</p>
+                <p><strong>Donaciones:</strong> {{ declaracion[8] }}</p>
+                <p><strong>Gastos Educación:</strong> {{ declaracion[9] }}</p>
+                <p><strong>Total Ingresos Gravados:</strong> {{ declaracion[10] }}</p>
+                <p><strong>Total Ingresos No Gravados:</strong> {{ declaracion[11] }}</p>
+                <p><strong>Total Costos Deducibles:</strong> {{ declaracion[12] }}</p>
+                <p><strong>Valor Impuesto:</strong> {{ declaracion[13] }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        {% if ingresos %}
+        <div class="ingresos-info">
+            <h2>Ingresos</h2>
+            {% for ingreso in ingresos %}
+            <div class="ingreso">
+                <p><strong>ID:</strong> {{ ingreso[0] }}</p>
+                <p><strong>Total Ingresos Gravados:</strong> {{ ingreso[1] }}</p>
+                <p><strong>Total Ingresos No Gravados:</strong> {{ ingreso[2] }}</p>
+                <p><strong>Total Costos Deducibles:</strong> {{ ingreso[3] }}</p>
+                <p><strong>Valor Impuesto:</strong> {{ ingreso[4] }}</p>
+                <p><strong>ID Usuario:</strong> {{ ingreso[5] }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
     </div>
 </body>
 </html>
