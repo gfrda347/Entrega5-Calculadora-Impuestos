@@ -5,7 +5,7 @@ import psycopg2
 import SecretConfig
 
 import sys
-sys.path.append("src")
+sys.path.append(".")
 
 from model.TaxLogic import TaxInformation
 
