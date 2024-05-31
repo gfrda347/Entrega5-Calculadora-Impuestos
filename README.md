@@ -3,7 +3,7 @@
 ## ¿Quién hizo esto? (Autores)
 
 - Santiago Rodriguez.
-- Pablo Troncozo.
+- Pablo Troncoso.
 
 ## ¿Qué es y para qué es?
 
@@ -32,7 +32,7 @@ Una calculadora de impuestos, tiene como propósito principal automatizar y simp
 
 ## ¿Cómo esta hecho?
 
-El proyecto, esta diseñado con clases, funciones, erroes y excepciones, tambien tenemos tres bibliotecas importadas, las cuales son, **unittes** para ejecutar las pruebas, **sys** para poder guiar la ruta completa y de manera segura en las carpetas del programa y **Kivy** para la creacion de la interfaz grafica.
+El proyecto, esta diseñado con clases, funciones, erroes y excepciones, tambien tenemos tres bibliotecas importadas, las cuales son, **unittes** para ejecutar las pruebas, **sys** para poder guiar la ruta completa y de manera segura en las carpetas del programa y **Kivy** para la creacion de la interfaz grafica y **flask** para la creacion de la interfaz web.
 
 En este proyecto tenemos dos carpetas principales, las cuales son **src**(en esta carpeta, esta una carpeta llamada **Logic** con un archivo llamado TaxLogic en el cual esta toda la logica del proyecta, tambien tenemos una carpeta llamada **console**, en donde hay un archivo llamdado TaxConsole en el nos permite ejecutar el programa por medio de la consola/terminal y otra carpeta llamada **GUI**, en donde hay un archivo llamado Tax_GUI el cual nos permite correr la interfaz grafica) y por ultimo tenemos una carpeta llamada **test**, en donde hay un archivo llamado TaxTests, en el cual estan todos los test del programa.
 
@@ -58,9 +58,37 @@ Tener en cuenta: primeramente debe descargar el repositorio, para hacerlo ten en
 3. Una vez  creado el proyecto y la base de datos te dirijes a la opcion **Dashboard**.
 4. Desplegas el menu donde dice **Connection string**, alli seleccionas la opcion de **Parameters only**.
 5. Copias todo lo que se encuentra en el campo de texto y te dirijes donde tienes el repositorio abierto.
-6. En el archivo vista_usuarios.py en la función conectar_db, agregar el postgresql del **connection string**.
-7. En este archivo debes pegar los parametros que copias en el Neon de tu base de datos.
-8. Por Ultimo debes cambiar el nombre del archivo SecretConfigSample.py por **SecretConfig.py**.
+6. Creas un archivo llamado **SecretConfig.py** donde pegaras todas tus credenciales, de la siguiente forma:
+
+#### PGDATABASE = "Nombre de la base de datos"
+---
+#### PGUSER = "Nombre de usuario asignado" 
+---
+#### PGPASSWORD = "Contraseña asiganda por Neon.tech" 
+---
+#### PGHOST = "Host asignado"
+---
+#### PGPORT = 5432 # POR DEFECTO ES 5432, PERO PUEDE CAMBIAR EN SU DB
+---
+#### PGCODE = "postgresql://neonDB_owner:************@ep-crimson-hat-a5bpoec2.us-east-2.aws.neon.tech/neonDB?sslmode=require"--> en el apartado connection string, copiar y pegar el postgresql de tu base de datos asi como este de ejemplo.
+
+### Ejecutar la página web (Base de Datos)
+
+1. Instalar todas las dependencias necesarias para poder acceder a la librería flask y poder ingresar a la página web:
+
+    `pip install flask`
+
+2. Clona el repositorio o descarga los archivos del programa.
+
+    `git clone https://github.com/gfrda347/Entrega5-Calculadora-Impuestos.git`
+
+3. Abre una terminal en la carpeta donde se encuentran los archivos del programa.
+
+    `cd Entrega5-Calculadora-Impuestos`
+
+4. Ejecuta el siguiente comando para iniciar el programa: 
+
+    `python view_web\vista_usuarios.py`
 
 ### Ejecutar por consola 
 1. Abra la terminal en su computadora.
@@ -89,7 +117,8 @@ Tener en cuenta: primeramente debe descargar el repositorio, para hacerlo ten en
 4. Utilice el mismo comando para entrar a la carpeta src, que es donde estan organizadas las carpetas con los archivos necesarios para que la aplicación funcione "cd src". 
 5. Luego copie la ruta que lleva hasta el momento en la terminal y luego escriba el comando "set PYTHONPATH=ruta" aqui va la ruta que copio, ejemplo: set PYTHONPATH=C:\ruta\Escritorio\Calculadora_Impuestos\src
 6. Utilice el comando cd para entrar a la carpeta GUI que es donde se encuentra la interfaz "cd GUI".
-7. Despues utilice el comando "python Tax_GUI.py". 
+7. Despues utilice el comando "python Tax_GUI.py".
+
 
 ## Tener en cuenta lo siguiente para que no lance errores:
 - No ingresar los ingresos laborales totales en el año

@@ -3,32 +3,32 @@ sys.path.append (".")
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 import psycopg2
-
-# Define el directorio base del proyecto
+import SecretConfig
+""" Define el directorio base del proyecto"""
 base_dir = os.path.abspath(os.path.dirname(__file__))
-# Configura el directorio de plantillas relativo al directorio base
+"""Configura el directorio de plantillas relativo al directorio base"""
 template_dir = os.path.join(base_dir, '../templates')
 
-# Crea la aplicación Flask
+"""Crea la aplicación Flask"""
 app = Flask(__name__, template_folder=template_dir)
 app.secret_key = 'your_secret_key'
 
-# Función para conectar a la base de datos
+"""Función para conectar a la base de datos"""
 def conectar_db():
-    conn_string = "postgresql://neondb_owner:9g7VrnOaAqTK@ep-lively-snow-a5tp6y2b.us-east-2.aws.neon.tech/entrega51?sslmode=require"
+    conn_string =SecretConfig.PGCODE
     conn = psycopg2.connect(conn_string)
     return conn
 
-# Ruta para la página de inicio
+"""Ruta para la página de inicio"""
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# Ruta para agregar un usuario
+"""Ruta para agregar un usuario"""
 @app.route('/agregar_usuario', methods=['GET', 'POST'])
 def agregar_usuario():
     if request.method == 'POST':
-        # Obtener datos del formulario
+        """ Obtener datos del formulario"""
         id_usuario = request.form['id_usuario']
         nombre = request.form['nombre']
         apellido = request.form['apellido']
@@ -37,12 +37,12 @@ def agregar_usuario():
         telefono = request.form['telefono']
         salario = request.form['salario']
 
-        # Conectar a la base de datos
+        """ Conectar a la base de datos"""
         conn = conectar_db()
         cursor = conn.cursor()
 
         try:
-            # Insertar el nuevo usuario en la base de datos
+            """ Insertar el nuevo usuario en la base de datos"""
             cursor.execute(
                 "INSERT INTO usuarios (id_usuario, nombre, apellido, documento_identidad, correo_electronico, telefono, salario) VALUES (%s, %s, %s, %s, %s, %s, %s)",
                 (id_usuario, nombre, apellido, documento_identidad, correo_electronico, telefono, salario)
@@ -63,7 +63,7 @@ def agregar_usuario():
 @app.route('/agregar_declaracion', methods=['GET', 'POST'])
 def agregar_declaracion():
     if request.method == 'POST':
-        # Obtener datos del formulario
+        """ Obtener datos del formulario"""
         id_usuario = request.form.get('id_usuario')
         ingresos_laborales = request.form.get('ingresos_laborales')
         otros_ingresos_gravables = request.form.get('otros_ingresos_gravables', 0)
@@ -75,12 +75,12 @@ def agregar_declaracion():
         donaciones = request.form.get('donaciones', 0)
         gastos_educacion = request.form.get('gastos_educacion', 0)
 
-        # Calcular valores adicionales
+        """ Calcular valores adicionales"""
         total_ingresos_gravados = float(ingresos_laborales) + float(otros_ingresos_gravables)
         total_ingresos_no_gravados = float(otros_ingresos_no_gravables)
         total_costos_deducibles = float(seguridad_social) + float(aportes_pension) + float(gastos_creditos_hipotecarios) + float(donaciones) + float(gastos_educacion)
 
-        # Validar los datos
+        """ Validar los datos"""
         if not all([id_usuario, ingresos_laborales, retenciones, seguridad_social, aportes_pension, gastos_creditos_hipotecarios]):
             flash('Todos los campos son obligatorios', 'error')
             return redirect(url_for('agregar_declaracion'))
@@ -136,7 +136,7 @@ def registrar_resultados():
 
     return redirect(url_for('index'))
 
-# Ruta para consultar un usuario
+""" Ruta para consultar un usuario"""
 @app.route('/consultar_usuario', methods=['GET', 'POST'])
 def consultar_usuario():
     usuario = None
@@ -159,7 +159,7 @@ def consultar_usuario():
 
     return render_template('consultar_usuario.html', usuario=usuario)
 
-# Ruta para eliminar un usuario
+""" Ruta para eliminar un usuario"""
 @app.route('/eliminar_usuario', methods=['GET', 'POST'])
 def eliminar_usuario():
     if request.method == 'POST':
