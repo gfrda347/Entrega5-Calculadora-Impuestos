@@ -1,5 +1,5 @@
 import sys
-sys.path.append (".")
+sys.path.append ("C:/Users/Usuario/Downloads/Entrega5-Calculadora-Impuestos-5")
 import os
 from flask import Flask, render_template, request, redirect, url_for, flash
 import psycopg2
