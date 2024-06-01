@@ -179,11 +179,23 @@ def eliminar_usuario():
         cursor = conn.cursor()
 
         try:
-            # Eliminar el usuario de la base de datos
+            # Iniciar una transacción
+            conn.autocommit = False
+            
+            # Eliminar de la tabla ingresos
+            cursor.execute("DELETE FROM ingresos WHERE id_usuario = %s", (id_usuario,))
+            
+            # Eliminar de la tabla declaracion
+            cursor.execute("DELETE FROM declaracion WHERE id_usuario = %s", (id_usuario,))
+            
+            # Eliminar de la tabla usuarios
             cursor.execute("DELETE FROM usuarios WHERE id_usuario = %s", (id_usuario,))
+
+            # Confirmar la transacción
             conn.commit()
             flash('Usuario eliminado exitosamente')
         except (Exception, psycopg2.Error) as e:
+            # Revertir la transacción en caso de error
             flash('Error al eliminar el usuario: ' + str(e))
             conn.rollback()
         finally:
@@ -196,4 +208,3 @@ def eliminar_usuario():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
