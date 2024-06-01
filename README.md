@@ -135,13 +135,13 @@ Tener en cuenta: primeramente debe descargar el repositorio, para hacerlo ten en
 
 3. Abre una terminal en la carpeta donde se encuentran los archivos del programa.
 
-    cd C:\Users\usuario\Desktop\Entrega5-Calculadora-Impuestos -->Aqui como se explica en el video copia la direccion o ruta en donde guarde el repositorio clonado
+    "cd" C:\Users\usuario\Desktop\Entrega5-Calculadora-Impuestos "-->Aqui como se explica en el video copia la direccion o ruta en donde guarde el repositorio clonado
 
-    cd view_web
+    "cd" view_web
     
 4. Ejecuta el siguiente comando para iniciar el programa: 
 
-    python vista_usuarios.py
+    "python vista_usuarios.py"
 
 
 ## Tener en cuenta lo siguiente para que no lance errores:
