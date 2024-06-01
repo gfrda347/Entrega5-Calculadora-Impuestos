@@ -6,7 +6,6 @@
 - Pablo Troncoso.
 
 ## Link del video de la explicación
-- https://youtu.be/kUxJonAG-ZM POR MEDIO DE VS
 - https://youtu.be/HeEpZhRLt0M POR CONSOLA
 
 ## ¿Qué es y para qué es?
