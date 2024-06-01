@@ -7,7 +7,7 @@
 
 ## Link del video de la explicación
 - https://youtu.be/kUxJonAG-ZM POR MEDIO DE VS
-- https://youtu.be/bDlZ2PtMzwQ0 POR CONSOLA
+- https://youtu.be/HeEpZhRLt0M POR CONSOLA
 
 ## ¿Qué es y para qué es?
 
@@ -123,11 +123,25 @@ Tener en cuenta: primeramente debe descargar el repositorio, para hacerlo ten en
 6. Utilice el comando cd para entrar a la carpeta GUI que es donde se encuentra la interfaz "cd GUI".
 7. Despues utilice el comando "python Tax_GUI.py".
 
-### Ejecutar la web (view web)
-1. Abra el CMD de su computadora.
-2. Ya en cmd vas a buscar el directorio donde esta la carpeta copiando "cd" (directorio donde esta la carpeta).
-3. Luego vaya a la parte donde esta la carpeta view_web y copie su directorio en el cmd "cd" (directorio donde la la carpeta view_web).
-4. Luego utilice el comando "python vista_usuarios.py" para ejecutar el archivo.
+### Ejecutar la página web (Base de Datos)
+
+1. Instalar todas las dependencias necesarias para poder acceder a la librería flask y poder ingresar a la página web:
+
+    pip install flask
+
+2. Clona el repositorio o descarga los archivos del programa.
+
+    git clone https://github.com/gfrda347/Entrega5-Calculadora-Impuestos.git
+
+3. Abre una terminal en la carpeta donde se encuentran los archivos del programa.
+
+    cd C:\Users\usuario\Desktop\Entrega5-Calculadora-Impuestos -->Aqui como se explica en el video copia la direccion o ruta en donde guarde el repositorio clonado
+
+    cd view_web
+    
+4. Ejecuta el siguiente comando para iniciar el programa: 
+
+    python vista_usuarios.py
 
 
 ## Tener en cuenta lo siguiente para que no lance errores:
