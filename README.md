@@ -6,8 +6,8 @@
 - Pablo Troncoso.
 
 ## Link del video de la explicación
--https://youtu.be/kUxJonAG-ZM POR MEDIO DE VS
--https://youtu.be/bDlZ2PtMzwQ0 POR CONSOLA
+- https://youtu.be/kUxJonAG-ZM POR MEDIO DE VS
+- https://youtu.be/bDlZ2PtMzwQ0 POR CONSOLA
 
 ## ¿Qué es y para qué es?
 
@@ -123,7 +123,7 @@ Tener en cuenta: primeramente debe descargar el repositorio, para hacerlo ten en
 6. Utilice el comando cd para entrar a la carpeta GUI que es donde se encuentra la interfaz "cd GUI".
 7. Despues utilice el comando "python Tax_GUI.py".
 
-###Ejecutar la web (view web)
+### Ejecutar la web (view web)
 1. Abra el CMD de su computadora.
 2. Ya en cmd vas a buscar el directorio donde esta la carpeta copiando "cd" (directorio donde esta la carpeta).
 3. Luego vaya a la parte donde esta la carpeta view_web y copie su directorio en el cmd "cd" (directorio donde la la carpeta view_web).
