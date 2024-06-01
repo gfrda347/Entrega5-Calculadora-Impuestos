@@ -76,23 +76,6 @@ Tener en cuenta: primeramente debe descargar el repositorio, para hacerlo ten en
 ---
 #### PGCODE = "postgresql://neonDB_owner:************@ep-crimson-hat-a5bpoec2.us-east-2.aws.neon.tech/neonDB?sslmode=require"--> en el apartado connection string, copiar y pegar el postgresql de tu base de datos asi como este de ejemplo.
 
-### Ejecutar la página web (Base de Datos)
-
-1. Instalar todas las dependencias necesarias para poder acceder a la librería flask y poder ingresar a la página web:
-
-    `pip install flask`
-
-2. Clona el repositorio o descarga los archivos del programa.
-
-    `git clone https://github.com/gfrda347/Entrega5-Calculadora-Impuestos.git`
-
-3. Abre una terminal en la carpeta donde se encuentran los archivos del programa.
-
-    `cd Entrega5-Calculadora-Impuestos`
-
-4. Ejecuta el siguiente comando para iniciar el programa: 
-
-    `python view_web\vista_usuarios.py`
 
 ### Ejecutar por consola 
 1. Abra la terminal en su computadora.
